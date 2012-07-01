@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<application xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://www.zeroturnaround.com/alderaan/rebel-2_0.xsd">
+
+	<classpath>
+		<dir name="/Users/jeremiegrodziski/Dropbox/projects/fer_eAF/eAF/eAF-web/target/classes">
+		</dir>
+        <dir name="/Users/jeremiegrodziski/Dropbox/projects/fer_eAF/eAF/eAF-web/target/eAF-web/WEB-INF/classes">
+        </dir>
+	</classpath>
+
+	<web>
+		<link target="/">
+			<dir name="/Users/jeremiegrodziski/Dropbox/projects/fer_eAF/eAF/eAF-web/src/main/webapp">
+			</dir>
+		</link>
+	</web>
+
+</application>

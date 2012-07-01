@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd">
+
+    <!-- Définit le mapping de l'URL à partir du nom de la classe, ex : DemandeDePrestationController -> http://xxx:1111/demandedeprestation-->
+    <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"/>
+    <!-- Définit le nom de la vue logique par défaut, idem que ci-dessus : DemandeDePrestationController -> demandedeprestation -->
+    <bean id="viewNameTranslator" class="org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator"/>
+    <!-- Construit la localisation physique à partir de la vue logique ci-dessus, ex: demandedeprestation -> WEB-INF/jsp/demandedeprestation.jsp -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView"/>
+        <property name="prefix" value="/WEB-INF/jsp/"/>
+        <property name="suffix" value=".jsp"/>
+    </bean>
+
+    <!-- Active le scan des classes Java pour y détecter et activer les annotations qui s'y trouvent-->
+    <context:component-scan base-package="ddd.bank.web"/>
+</beans>
