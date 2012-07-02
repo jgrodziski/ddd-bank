@@ -1,8 +1,14 @@
+Narrative:
+Comme un porteur de carte émise par une banque française
+Je veux faire un retrait d'espèces en France
+Pour obtenir des espèces rapidement à toute heure
+
 Scénario: retrait par carte de paiement en DAB - succès
 
-Etant donné que le porteur possède la carte no 1234 5678 9012 3456 en EUR et un débit de 0 EUR
-Quand le porteur effectue un paiement de 100 EUR à l'acquéreur 123
-Alors le débit doit etre égal à 100 EUR
+Etant donné que le porteur Jérémie Grodziski possède la carte no 1234 5678 9012 3456 en EUR et un débit de 0 EUR associé au compte bancaire 300003 03594 00051524344 12 avec un solde de 1000 € à la banque Société Générale
+Quand le porteur effectue un retrait de 100 EUR au DAB de Pantin
+Alors il obtient 100 € en espèces
+Alors le solde du compte est de 900 €
 
 Scénario: retrait par carte de paiement en DAB - solde insuffisant
 
