@@ -20,7 +20,7 @@ public class CreditCardSteps {
     Retrait retrait;
 
     @Given("le porteur $prenom $nom possède la carte no $noCarte en $deviseCarte et un débit de $debit EUR associé au compte bancaire $noCompte avec un solde de $solde \u20AC \u00E0 la banque $nomBanque")
-    public void givenLePorteurPossèdeLaCarte(String nom, String prenom, String noCarte, String deviseCarte, Integer debit, String noCompte, Integer solde, String nomBanque) {
+    public void givenLePorteurPossedeLaCarte(String nom, String prenom, String noCarte, String deviseCarte, Integer debit, String noCompte, Integer solde, String nomBanque) {
         porteur = new Porteur(prenom, nom);
         compte = new Compte(new Montant(solde),noCompte);
         carte = new Carte( new NumeroCarte(noCarte), new Date(System.currentTimeMillis()+(1000*60*60*24*365*2)),prenom + " " + nom, compte);
@@ -40,7 +40,7 @@ public class CreditCardSteps {
     }
 
     @Then("le solde du compte est de $solde €")
-    public void thenLeSoldeDuCompteEstDe900€(Integer solde) {
+    public void thenLeSoldeDuCompteEstDe(Integer solde) {
         Montant soldeAttendu = new Montant(solde);
         Assert.state(compte.getSolde().equals(soldeAttendu));
     }
