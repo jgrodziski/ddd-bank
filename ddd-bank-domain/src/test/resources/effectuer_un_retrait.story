@@ -10,6 +10,9 @@ Quand le porteur effectue un retrait de 100 EUR au DAB de Pantin
 Alors il obtient 100 € en espèces
 Alors le solde du compte est de 900 €
 
+
+
+
 Scénario: retrait par carte de paiement en DAB - solde insuffisant
 
 Scénario: retrait par carte de paiement en DAB - code erronée

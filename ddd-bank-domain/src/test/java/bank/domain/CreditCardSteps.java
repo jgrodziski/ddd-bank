@@ -1,11 +1,11 @@
 package bank.domain;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import ddd.bank.domain.*;
 import org.jbehave.core.annotations.*;
+import org.joda.time.Duration;
+import org.joda.time.ReadableInstant;
 import org.springframework.util.Assert;
 
-import java.io.IOException;
 import java.util.Date;
 
 /**
@@ -23,14 +23,15 @@ public class CreditCardSteps {
     public void givenLePorteurPossedeLaCarte(String nom, String prenom, String noCarte, String deviseCarte, Integer debit, String noCompte, Integer solde, String nomBanque) {
         porteur = new Porteur(prenom, nom);
         compte = new Compte(new Montant(solde),noCompte);
-        carte = new Carte( new NumeroCarte(noCarte), new Date(System.currentTimeMillis()+(1000*60*60*24*365*2)),prenom + " " + nom, compte);
+        long dansDeuxAns = System.currentTimeMillis()+(1000*60*60*24*365*2);
+        carte = new Carte( new NumeroCarte(noCarte), new Date(dansDeuxAns),prenom + " " + nom, compte);
         banque = new Banque(nomBanque);
     }
 
-    @When("le porteur effectue un retrait de $montantRetrait EUR au DAB de $localisation")
-    public void whenLePorteurEffectueUnRetrait(Integer montantRetrait, String localisation) {
+    @When("le porteur effectue un retrait de $retrait EUR au DAB de $localisation")
+    public void whenLePorteurEffectueUnRetrait(Integer retrait, String localisation) {
         dab = new DAB(localisation);
-        retrait = dab.retirer(carte, new Montant(montantRetrait));
+        this.retrait = dab.retirer(carte, new Montant(retrait));
     }
 
     @Then("il obtient $montant € en esp\u00E8ces")
