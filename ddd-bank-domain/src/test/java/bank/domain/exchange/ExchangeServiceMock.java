@@ -22,10 +22,10 @@ import static org.mockito.Mockito.when;
 public class ExchangeServiceMock {
     private static List LIST =  new ArrayList<QuoteDTO>(365);
 
-    public static final ExchangeService getInstance() {
+    public static final ExchangeService getInstance(double currentRate) {
         ExchangeService exchange = mock(ExchangeService.class);
         Random random = new Random(System.currentTimeMillis());
-        when(exchange.findCurrentRate(any(Currency.class))).thenReturn(new QuoteDTO(new Date(), new BigDecimal(0.82, new MathContext(2))));
+        when(exchange.findCurrentRate(any(Currency.class))).thenReturn(new QuoteDTO(new Date(), new BigDecimal(currentRate, new MathContext(2))));
 
         when(exchange.findRate(any(Currency.class))).thenReturn(LIST);
 
