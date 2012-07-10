@@ -1,5 +1,7 @@
 package ddd.bank.domain;
 
+import ddd.syracuse.PermissionRule;
+
 import java.util.Date;
 
 /**
@@ -18,8 +20,26 @@ public class Carte {
         this.compte = compte;
     }
 
-    public void debiterImmediatement(Montant montant){
-        compte.debiter(montant);
+    public void debiterImmediatement(Montant montantRetrait){
+        new SoldeInsuffisantRule(compte.getSolde(), montantRetrait).estAutorise();
+        compte.debiter(montantRetrait);
+    }
+
+    class SoldeInsuffisantRule implements PermissionRule {
+        private Montant soldeCompte;
+        private Montant montantRetrait;
+
+        SoldeInsuffisantRule(Montant soldeCompte, Montant montantRetrait) {
+            this.soldeCompte = soldeCompte;
+            this.montantRetrait = montantRetrait;
+        }
+
+        @Override
+        public boolean estAutorise() {
+            boolean estAutorise = montantRetrait.getValeur().compareTo(soldeCompte.getValeur()) < 0;
+            if (! estAutorise) throw new RuntimeException("Le montant du retrait "+montantRetrait.getValeur()+" doit être inférieur au solde du compte "+soldeCompte.getValeur());
+            return estAutorise;
+        }
     }
 
     public NumeroCarte getNumeroCarte() {

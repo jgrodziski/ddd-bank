@@ -18,6 +18,7 @@ public class CreditCardSteps {
     Compte compte;
     DAB dab;
     Retrait retrait;
+    RuntimeException re;
 
     @Given("le porteur $prenom $nom possède la carte no $noCarte en $deviseCarte et un débit de $debit EUR associé au compte bancaire $noCompte avec un solde de $solde \u20AC \u00E0 la banque $nomBanque")
     public void givenLePorteurPossedeLaCarte(String nom, String prenom, String noCarte, String deviseCarte, Integer debit, String noCompte, Integer solde, String nomBanque) {
@@ -31,7 +32,11 @@ public class CreditCardSteps {
     @When("le porteur effectue un retrait de $retrait EUR au DAB de $localisation")
     public void whenLePorteurEffectueUnRetrait(Integer retrait, String localisation) {
         dab = new DAB(localisation);
-        this.retrait = dab.retirer(carte, new Montant(retrait));
+        try {
+            this.retrait = dab.retirer(carte, new Montant(retrait));
+        } catch (RuntimeException re){
+            this.re = re;
+        }
     }
 
     @Then("il obtient $montant € en esp\u00E8ces")
@@ -44,6 +49,12 @@ public class CreditCardSteps {
     public void thenLeSoldeDuCompteEstDe(Integer solde) {
         Montant soldeAttendu = new Montant(solde);
         Assert.state(compte.getSolde().equals(soldeAttendu));
+    }
+
+    @Then("il obtient le message \"solde insuffisant\"")
+    public void thenIlObtientLeMessagesoldeInsuffisant() {
+        Assert.state(re != null);
+        System.out.println(re.getMessage());
     }
 
 
