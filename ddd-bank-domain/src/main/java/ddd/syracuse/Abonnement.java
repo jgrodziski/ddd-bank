@@ -3,8 +3,5 @@ package ddd.syracuse;
 /**
  *
  */
-public class SIREN {
-
-
-
+public class Abonnement {
 }

@@ -4,7 +4,7 @@ package ddd.syracuse;
 /**
  *
  */
-public class ClientSiretise {
+public class ClientSiretise extends Client{
 
 
     //TODO ID ?
