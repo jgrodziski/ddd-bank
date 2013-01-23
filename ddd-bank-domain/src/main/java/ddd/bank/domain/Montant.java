@@ -1,5 +1,7 @@
 package ddd.bank.domain;
 
+import org.springframework.util.Assert;
+
 import java.math.BigDecimal;
 import java.util.Currency;
 
@@ -9,10 +11,15 @@ import java.util.Currency;
 public class Montant {
     private BigDecimal valeur;
     private Currency devise;
+    public static final Montant ZERO = new Montant(BigDecimal.ZERO);
 
-    public Montant(Integer valeur){
+    public Montant(BigDecimal valeur){
         this.valeur = new BigDecimal(valeur.intValue());
         devise = Currency.getInstance("EUR");
+    }
+
+    public Montant(Integer valeur){
+        this(new BigDecimal(valeur.intValue()));
     }
 
     public Montant(BigDecimal valeur, Currency devise) {
@@ -50,5 +57,15 @@ public class Montant {
 
     public Montant soustraire(Montant montant) {
         return new Montant(this.valeur.subtract(montant.getValeur()), this.getDevise());
+    }
+
+    public Montant additionner(Montant montant) {
+        Assert.state(montant.getDevise().equals(this.getDevise()),"La devise du montant additionné ("+montant.getDevise()+") doit être identique à l'objet source "+this.getDevise());
+        return new Montant(this.getValeur().add(montant.getValeur()), this.getDevise());
+    }
+
+    @Override
+    public String toString() {
+        return "{"+ valeur + " " + devise + '}';
     }
 }

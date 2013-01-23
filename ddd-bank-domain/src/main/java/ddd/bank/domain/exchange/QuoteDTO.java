@@ -15,9 +15,9 @@ public class QuoteDTO {
         this.rate = rate;
     }
 
-    Currency currency;
-    BigDecimal rate; // relative reference currency
-    Date validfromday;
-    Date validtoday;
+    public Currency currency;
+    public BigDecimal rate; // relative reference currency
+    public Date validfromday;
+    public Date validtoday;
 }
 

@@ -3,6 +3,8 @@ package bank.domain;
 import org.jbehave.core.configuration.Configuration;
 import org.jbehave.core.configuration.Keywords;
 import org.jbehave.core.configuration.MostUsefulConfiguration;
+import org.jbehave.core.failures.FailingUponPendingStep;
+import org.jbehave.core.failures.RethrowingFailure;
 import org.jbehave.core.failures.SilentlyAbsorbingFailure;
 import org.jbehave.core.i18n.LocalizedKeywords;
 import org.jbehave.core.io.CodeLocations;
@@ -39,8 +41,7 @@ public class DDDBankStories extends JUnitStories {
                 .useKeywords(frKeywords)
                 .useStepCollector(new MarkUnmatchedStepsAsPending(frKeywords))
                 .useStoryParser(new RegexStoryParser(frKeywords))
-                .useStoryLoader(
-                        new LoadFromClasspath(classLoader))
+                .useStoryLoader(new LoadFromClasspath(classLoader))
                 .useStoryReporterBuilder(new StoryReporterBuilder()
                         .withCodeLocation(codeLocation)
                         .withPathResolver(new FilePrintStreamFactory.ResolveToSimpleName())
@@ -49,12 +50,12 @@ public class DDDBankStories extends JUnitStories {
                         .withFailureTrace(true)
                         .withViewResources(properties)
                         .withKeywords(frKeywords))
-                .useFailureStrategy(new SilentlyAbsorbingFailure())
+                .useFailureStrategy(new RethrowingFailure())
                 .useStepdocReporter(new PrintStreamStepdocReporter());
     }
 
     public List<CandidateSteps> candidateSteps() {
-        return new InstanceStepsFactory(configuration(), new CreditCardSteps())
+        return new InstanceStepsFactory(configuration(), new CreditCardSteps(), new FactureSteps())
                 .createCandidateSteps();
     }
 
@@ -68,7 +69,7 @@ public class DDDBankStories extends JUnitStories {
     }
 
     protected String storyPattern() {
-        return "**/*.story";
+        return "**/effectuer_un_retrait.story";
     }
 
 }
